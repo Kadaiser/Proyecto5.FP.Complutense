@@ -8,8 +8,10 @@ using namespace std;
 const string ficheroCorreos = "ListaCorreo.txt";
 const int MAXCORREOS = 100;
 
+typedef tCorreoPtr tArrayCorreoPtr [MAXCORREOS];
 typedef struct{
-	tCorreo correo[MAXCORREOS];
+	//tCorreo correo[MAXCORREOS];
+	tArrayCorreoPtr correos;
 	int contador;
 } tListaCorreos;
 

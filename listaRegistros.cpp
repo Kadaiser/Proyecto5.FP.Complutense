@@ -6,14 +6,16 @@ using namespace std;
 
 #include "listaRegistros.h"
 
-
-void inicializar(tListaRegistros &registros){
+void inicializar(tListaRegistros& registros){
+//void inicializar(tListaRegistros *tRegistroPtr){
 	registros.contador = 0;
+	//punteroLR->contador = 0;
 }
 
 void cargar(tListaRegistros &registros, ifstream& archivo){
 	int elementos;
-	tRegistro registro;
+	tRegistro registro; 
+	
 	
 	inicializar(registros);
 	archivo >> elementos;

@@ -6,10 +6,13 @@ using namespace std;
 #include "usuario.h"
 
 const string ficheroUsuarios = "Usuarios.txt";
-const int MAXUSUARIOS = 100;
+const int MAXUSUARIOS = 50;
+
+typedef tUsuarioPtr tArrayUsuarioPtr[MAXUSUARIOS];//Array de punteros a un usuario
 
 typedef struct{
-tUsuario usuario[MAXUSUARIOS];
+//tUsuario usuarios[MAXUSUARIOS];
+tArrayUsuarioPtr usuarios;
 int contador;
 }tListaUsuarios;
 
