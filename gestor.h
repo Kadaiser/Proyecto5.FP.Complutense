@@ -12,8 +12,8 @@ const string DOMINIO = "fdimail.com";
 typedef struct{
 	string dominio;
 	int usuarioActivo;
-	tListaCorreos correos;
-	tListaUsuarios usuarios;
+	tListaCorreos listaCorreos;
+	tListaUsuarios listaUsuarios;
 }tGestor;
 
 

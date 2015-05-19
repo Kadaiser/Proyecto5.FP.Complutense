@@ -14,7 +14,7 @@ void inicializar(tGestor& gestor, string dominio){
 
 bool arrancar(tGestor& gestor, string dominio){
 	inicializar(gestor, DOMINIO);
-	return (cargar(gestor.usuarios, dominio) && cargar(gestor.correos, dominio));
+	return (cargar(gestor.usuarios, dominio) && cargar(gestor.listaCorreos, dominio));
 }
 
 
@@ -22,7 +22,7 @@ void apagar(const tGestor &gestor){
 	system("cls");
 	cout << "Cerrando gestor de correo " << gestor.dominio << endl;
 	guardar(gestor.usuarios, gestor.dominio);
-	guardar(gestor.correos, gestor.dominio);
+	guardar(gestor.listaCorreos, gestor.dominio);
 	
 }
 
@@ -90,7 +90,7 @@ return ok;
 
 
 
-void leerCorreo(tGestor& gestor, tListaRegistros& registros){
+void leerCorreo(tGestor& gestor, tListaRegistros& listaRegistros){
 	int numCorreo, pos, opcion;
 	string cabecera, cadena;
 	tCorreo correoRespondido;
@@ -99,15 +99,15 @@ void leerCorreo(tGestor& gestor, tListaRegistros& registros){
 	cin >> numCorreo;
 	system("cls");
 	
-	if (numCorreo > 0 && numCorreo <= registros.contador){
-		correoLeido(registros, registros.registro[numCorreo-1].identificador); //Al acceder a un correo siempre en la posicion n-1 respecto de lo que el usuario ve en la lista, se marca como leid
-		buscar(gestor.correos, registros.registro[numCorreo-1].identificador, pos);	//Buscar correo en la lista de correos
-		cout << aCadena(gestor.correos.correo[pos]); //Se muestra el contenido del correo
+	if (numCorreo > 0 && numCorreo <= listaRegistros.contador){
+		correoLeido(listaRegistros, listaRegistros.registro[numCorreo-1].identificador); //Al acceder a un correo siempre en la posicion n-1 respecto de lo que el usuario ve en la lista, se marca como leid
+		buscar(gestor.listaCorreos, listaRegistros.registro[numCorreo-1].identificador, pos);	//Buscar correo en la lista de correos
+		cout << aCadena(gestor.listaCorreos.correo[pos]); //Se muestra el contenido del correo
 		mostrarMenuVerCorreo();	//Se muestra el menu de opciones d ela lectura de correos
 		cin >> opcion;
 		
 		if (opcion == 1){
-			correoContestacion (gestor.correos.correo[pos], correoRespondido, gestor.correos.correo[pos].destinatario);	//Se puede enviar una respuesta (Re:) al emisor; 
+			correoContestacion (gestor.listaCorreos.correo[pos], correoRespondido, gestor.correos.correo[pos].destinatario);	//Se puede enviar una respuesta (Re:) al emisor; 
 			enviarCorreo(gestor, correoRespondido);
 		}
 	}
@@ -120,7 +120,7 @@ void enviarCorreo(tGestor& gestor, const tCorreo &correo){
 	int pos;
 
 	if (buscarUsuario(gestor.usuarios, correo.destinatario, pos)){
-		if(insertar(gestor.correos, correo)){
+		if(insertar(gestor.listaCorreos, correo)){
 			registro.leido = true;
 			registro.identificador = correo.identificador;	
 			if (insertar(gestor.usuarios.usuario[gestor.usuarioActivo].bandejaSalida, registro)){
@@ -142,7 +142,7 @@ void enviarCorreo(tGestor& gestor, const tCorreo &correo){
 
 
 
-void borrarCorreo(tGestor& gestor, tListaRegistros& registros){
+void borrarCorreo(tGestor& gestor, tListaRegistros& listaRegistros){
 	int numCorreo;
 	int i = 0;
 	string id;
@@ -150,9 +150,9 @@ void borrarCorreo(tGestor& gestor, tListaRegistros& registros){
 	cout << "Introduzca el numero correo a borrar: ";
 	cin >> numCorreo;
 
-	if (numCorreo > 0 && numCorreo <= registros.contador){
-		id = registros.registro[numCorreo - 1].identificador;
-		if(borrar(registros, registros.registro[numCorreo - 1].identificador)){
+	if (numCorreo > 0 && numCorreo <= listaRegistros.contador){
+		id = listaRegistros.registro[numCorreo - 1].identificador;
+		if(borrar(listaRegistros, listaRegistros.registro[numCorreo - 1].identificador)){
 			cout << "El mensaje se elimino de tu bandeja correctamente." << endl;
 		
 		while(i < gestor.usuarios.contador && !existe){
@@ -160,7 +160,7 @@ void borrarCorreo(tGestor& gestor, tListaRegistros& registros){
 					existe = true;
 					i++;
 			}
-			if(!existe && borrar(gestor.correos, id))
+			if(!existe && borrar(gestor.listaCorreos, id))
 			cout << "Tambien ha sido elmininado de la base de datos" << endl;
 		}
 	}
@@ -170,18 +170,18 @@ void borrarCorreo(tGestor& gestor, tListaRegistros& registros){
 }
 
 
-void lecturaRapida(tGestor& gestor, tListaRegistros& registros){
+void lecturaRapida(tGestor& gestor, tListaRegistros& listaRegistros){
 	int pos;
 	system("cls");
 
-	ordenar_AF(gestor.correos);
+	ordenar_AF(gestor.listaCorreos);
 
-	for (int i = 0; i<registros.contador; i++){
+	for (int i = 0; i<listaRegistros.contador; i++){
 
-		if (!registros.registro[i].leido){
-			buscar(gestor.correos, registros.registro[i].identificador, pos);	
-			cout << aCadena(gestor.correos.correo[pos]);
-			correoLeido(gestor.usuarios.usuario[gestor.usuarioActivo].bandejaEntrada, registros.registro[i].identificador);
+		if (!listaRegistros.registro[i].leido){
+			buscar(gestor.listaCorreos, listaRegistros.registro[i].identificador, pos);	
+			cout << aCadena(gestor.listaCorreos.correo[pos]);
+			correoLeido(gestor.usuarios.usuario[gestor.usuarioActivo].bandejaEntrada, listaRegistros.registro[i].identificador);
 			lineaIntercalada();
 		}
 	}
@@ -262,15 +262,15 @@ void mostarBandeja(const tGestor & gestor, bool bEntrada){
 		for(int i =  0; i< usuario.bandejaEntrada.contador; i++){
 			if(usuario.bandejaEntrada.registro[i].leido) cout << " ";
 			else cout << "*";
-			if (buscar(gestor.correos, usuario.bandejaEntrada.registro[i].identificador, pos)){
-				cout << setw(2) << i+1 << " "  << gestor.correos.correo[pos].emisor << setw(25) << gestor.correos.correo[pos].asunto << setw(25) << mostrarSoloDia(gestor.correos.correo[pos].fecha) << endl;
+			if (buscar(gestor.listaCorreos, usuario.bandejaEntrada.registro[i].identificador, pos)){
+				cout << setw(2) << i+1 << " "  << gestor.listaCorreos.correo[pos].emisor << setw(25) << gestor.correos.correo[pos].asunto << setw(25) << mostrarSoloDia(gestor.correos.correo[pos].fecha) << endl;
 			}
 		}
 	}
 	else{
 		for(int i =0; i < usuario.bandejaSalida.contador; i++){
-			if (buscar(gestor.correos, usuario.bandejaSalida.registro[i].identificador, pos)){
-				cout << " " << setw(2) << i+1 << " "  << gestor.correos.correo[pos].destinatario << setw(25) << gestor.correos.correo[pos].asunto << setw(25) << mostrarSoloDia(gestor.correos.correo[pos].fecha) << endl;
+			if (buscar(gestor.listaCorreos, usuario.bandejaSalida.registro[i].identificador, pos)){
+				cout << " " << setw(2) << i+1 << " "  << gestor.listaCorreos.correo[pos].destinatario << setw(25) << gestor.correos.correo[pos].asunto << setw(25) << mostrarSoloDia(gestor.correos.correo[pos].fecha) << endl;
 			}
 		}
 	}

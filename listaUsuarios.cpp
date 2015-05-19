@@ -7,15 +7,15 @@ using namespace std;
 #include "listaUsuarios.h"
 
 
-void inicializar(tListaUsuarios &usuarios){
-	usuarios.contador=0;
+void inicializar(tListaUsuarios &listaUsuarios){
+	listaUsuarios.contador=0;
 }
 
 
-bool cargar(tListaUsuarios& usuarios, string dominio){
+bool cargar(tListaUsuarios& listaUsuarios, string dominio){
 	bool ok;
 	ifstream archivo;
-	inicializar(usuarios);
+	inicializar(listaUsuarios);
 	string nombreFichero = dominio + "_" + ficheroUsuarios;
 
 	archivo.open(nombreFichero);
@@ -25,7 +25,7 @@ bool cargar(tListaUsuarios& usuarios, string dominio){
 	else{
 		tUsuario usuario;
 		while (cargar(usuario,archivo)){
-		aniadir(usuarios, usuario);
+		aniadir(listaUsuarios, usuario);
 		}
 		archivo.close();
 		ok = true;
@@ -33,7 +33,7 @@ bool cargar(tListaUsuarios& usuarios, string dominio){
 	return ok;
 }
 
-void guardar(const tListaUsuarios& usuarios, string dominio){
+void guardar(const tListaUsuarios& listaUsuarios, string dominio){
 	ofstream archivo;
 	string nombreFichero = dominio + "_" + ficheroUsuarios;
 	
@@ -42,9 +42,9 @@ void guardar(const tListaUsuarios& usuarios, string dominio){
 	cout << "Error al guardar la lista de correos en el fichero" << endl;
 	}
 	else{
-		for (int i= 0; i < usuarios.contador; i++){
+		for (int i= 0; i < listaUsuarios.contador; i++){
 		
-		guardar(usuarios.usuario[i], archivo);
+		guardar(listaUsuarios.usuario[i], archivo);
 		}
 		archivo << "XXX";
 		archivo.close();
@@ -52,29 +52,29 @@ void guardar(const tListaUsuarios& usuarios, string dominio){
 }
 
 
-bool aniadir(tListaUsuarios& usuarios, const tUsuario& usuario){
+bool aniadir(tListaUsuarios& listaUsuarios, const tUsuario& usuario){
 	bool ok = false;
 	
-	if(usuarios.contador < MAXUSUARIOS){
-		usuarios.usuario[usuarios.contador]= usuario;
-		usuarios.contador++;
-		ordenarUsuarios(usuarios);
+	if(listaUsuarios.contador < MAXUSUARIOS){
+		listaUsuarios.usuario[listaUsuarios.contador]= usuario;
+		listaUsuarios.contador++;
+		ordenarUsuarios(listaUsuarios);
 		ok = true;
 	}
 	return ok;
 }
 
-bool buscarUsuario(const tListaUsuarios& usuarios, string id, int& posicion){
+bool buscarUsuario(const tListaUsuarios& listaUsuarios, string id, int& posicion){
 
-	int ini = 0, fin = usuarios.contador-1, mitad;
+	int ini = 0, fin = listaUsuarios.contador-1, mitad;
 	bool encontrado = false;			//Por defecto no se ha econtrado el elemento que se busca
 	while(ini<=fin && !encontrado){		//Mientras que mi rango de busqueda exista y no haya encontrado el elemento
 		mitad = (ini+fin) / 2;
 
-		if(id < usuarios.usuario[mitad].identificador){
+		if(id < listaUsuarios.usuario[mitad].identificador){
 		fin = mitad - 1;
 		}
-		else if(usuarios.usuario[mitad].identificador < id){
+		else if(listaUsuarios.usuario[mitad].identificador < id){
 		ini = mitad + 1;
 		}
 		else{
@@ -88,17 +88,17 @@ bool buscarUsuario(const tListaUsuarios& usuarios, string id, int& posicion){
 }
 
 /* Variante de ordenacion por insercion */
-void ordenarUsuarios(tListaUsuarios& usuarios){
+void ordenarUsuarios(tListaUsuarios& listaUsuarios){
 	int pos=0;
 	tUsuario nuevo;
 	
-	nuevo = usuarios.usuario[usuarios.contador-1];
-	while ((pos < usuarios.contador-1) && !(usuarios.usuario[pos].identificador > nuevo.identificador)) {
+	nuevo = listaUsuarios.usuario[listaUsuarios.contador-1];
+	while ((pos < listaUsuarios.contador-1) && !(listaUsuarios.usuario[pos].identificador > nuevo.identificador)) {
 		pos++;
 	}
-	for (int j = usuarios.contador-1; j > pos; j--) {
-		usuarios.usuario[j] = usuarios.usuario[j-1];
+	for (int j = listaUsuarios.contador-1; j > pos; j--) {
+		listaUsuarios.usuario[j] = listaUsuarios.usuario[j-1];
 	}
-	usuarios.usuario[pos] = nuevo;
+	listaUsuarios.usuario[pos] = nuevo;
 		
 }

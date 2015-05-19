@@ -6,80 +6,80 @@ using namespace std;
 
 #include "listaRegistros.h"
 
-void inicializar(tListaRegistros& registros){
+void inicializar(tListaRegistros& listaRegistros){
 //void inicializar(tListaRegistros *tRegistroPtr){
-	registros.contador = 0;
+	listaRegistros.contador = 0;
 	//punteroLR->contador = 0;
 }
 
-void cargar(tListaRegistros &registros, ifstream& archivo){
+void cargar(tListaRegistros &listaRegistros, ifstream& archivo){
 	int elementos;
 	tRegistro registro; 
 	
 	
-	inicializar(registros);
+	inicializar(listaRegistros);
 	archivo >> elementos;
 	if(elementos>0){
 		for(int i = 0; i < elementos; i++){
 			cargarRegistro(registro, archivo);
-			insertar(registros, registro);
+			insertar(listaRegistros, registro);
 		}
 	}
 }
 
-void guardar(const tListaRegistros &registros, ofstream& archivo){
-	for(int i= 0; i < registros.contador; i++){
-		archivo << registros.registro[i].identificador << " " << registros.registro[i].leido << endl;
+void guardar(const tListaRegistros &listaRegistros, ofstream& archivo){
+	for(int i= 0; i < listaRegistros.contador; i++){
+		archivo << listaRegistros.registro[i].identificador << " " << listaRegistros.registro[i].leido << endl;
 	}
 }
 
-bool insertar(tListaRegistros &registros, tRegistro registro){
+bool insertar(tListaRegistros &listaRegistros, tRegistro registro){
 	bool ok = false;
-	if(registros.contador < MAXREGISTROS){
-		registros.registro[registros.contador] = registro;
-		registros.contador++;
+	if(listaRegistros.contador < MAXREGISTROS){
+		listaRegistros.registro[listaRegistros.contador] = registro;
+		listaRegistros.contador++;
 		ok = true;
 	}
 	return ok;
 }
 
-bool borrar(tListaRegistros &registros, string id){
+bool borrar(tListaRegistros &listaRegistros, string id){
 	bool borrado = false;
-	int posicion = buscar(registros,id);
+	int posicion = buscar(listaRegistros,id);
 	if(posicion != -1){
-			for (posicion; posicion < registros.contador; posicion++){
-				registros.registro[posicion] = registros.registro[posicion+1];
+			for (posicion; posicion < listaRegistros.contador; posicion++){
+				listaRegistros.registro[posicion] = listaRegistros.registro[posicion+1];
 		}
-		registros.contador--;
+		listaRegistros.contador--;
 		borrado = true;
 	}
 return borrado;
 }
 
-bool correoLeido(tListaRegistros &registros, string id){
+bool correoLeido(tListaRegistros &listaRegistros, string id){
 	bool check = false;
-	int posicion = buscar(registros,id);
+	int posicion = buscar(listaRegistros,id);
 
 	if(posicion != -1){
-		registros.registro[posicion].leido = true;
+		listaRegistros.registro[posicion].leido = true;
 		check = true;
 	}	
 	return check;
 }
 
-int buscar(const tListaRegistros &registros, string id){
+int buscar(const tListaRegistros &listaRegistros, string id){
 	int posicion;
-	int ini = 0, fin = registros.contador-1, mitad;
+	int ini = 0, fin = listaRegistros.contador-1, mitad;
 	
 	bool encontrado = false;			//Por defecto no se ha econtrado el elemento que se busca
 	
 	while(ini<=fin && !encontrado){		//Mientras que mi rango de busqueda exista y no haya encontrado el elemento
 		mitad = (ini+fin) / 2;
 
-		if(id < registros.registro[mitad].identificador){
+		if(id < listaRegistros.registro[mitad].identificador){
 		fin = mitad - 1;
 		}
-		else if(registros.registro[mitad].identificador < id){
+		else if(listaRegistros.registro[mitad].identificador < id){
 		ini = mitad + 1;
 		}
 		else{
