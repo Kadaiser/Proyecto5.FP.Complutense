@@ -8,19 +8,27 @@ using namespace std;
 const string ficheroCorreos = "ListaCorreo.txt";
 const int MAXCORREOS = 100;
 
-typedef tCorreoPtr tArrayCorreoPtr [MAXCORREOS];
+//typedef tCorreoPtr tArrayCorreoPtr [MAXCORREOS];
 typedef struct{
 	//tCorreo correo[MAXCORREOS];
-	tArrayCorreoPtr correos;
+	//tArrayCorreoPtr correos;
+	tCorreo* correos = new tCorreo[10]; //array dinamicos
 	int contador;
+	int capacidad; //indica la capacidad reservada en memoria del ultimo new
 } tListaCorreos;
 
 
+/**
+Creacion de array
+hay dos contextos:
+CARGA DE FICHEROS
+void inicializar;
+*/
 
 /**
 *  Inicializa la lista
 */
-void inicializar(tListaCorreos &listaCorreos);
+void inicializar(tListaCorreos &listaCorreos, int capacidadInicial);
 
 /**
 * Implementa la carga de la lista de correos desde el fichero de correos de nombre <NombreDominio>_correos.txt.

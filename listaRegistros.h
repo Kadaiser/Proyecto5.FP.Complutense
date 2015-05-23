@@ -10,7 +10,7 @@ string identificador;
 bool leido;
 }tRegistro;
 
-typedef tRegistro *tRegistroPtr = nullptr;	//Es un tipo definido de puntero que apunta a una estructura de registro
+typedef tRegistro *tRegistroPtr = new tRegistro[n];	//Es un tipo definido de puntero que apunta a una estructura de registro
 
 typedef tRegistroPtr tArrayRegistroPtr[MAXREGISTROS]
 typedef struct{
@@ -19,7 +19,6 @@ tArrayRegistroPtr registros;
 int contador;
 }tListaRegistros;
 
-typedef tListaRegistros *tListaRegistrosPtr = nullptr; //Es un tipo definido de puntero que apunta a una estructura de Listaregistro
 //tListaRegistrosPtr punteroLR = &registros; WhereTF goes this?
 
 

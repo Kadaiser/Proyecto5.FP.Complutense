@@ -6,14 +6,15 @@ using namespace std;
 
 #include "listaCorreos.h"
 
-void inicializar(tListaCorreos &listaCorreos){
+void inicializar(tListaCorreos &listaCorreos int capInicial){
+	listaCorreos.correos = new tCorreo [capInicial];
 	listaCorreos.contador = 0;
+	listaCorreos.capacidad = capInicial
 }
 
 bool cargar(tListaCorreos &listaCorreos, string dominio){
 	bool ok;
 	ifstream archivo;
-	inicializar(listaCorreos);
 	string nombreFichero = dominio + "_" + ficheroCorreos;
 	
 	archivo.open(nombreFichero);
@@ -21,10 +22,14 @@ bool cargar(tListaCorreos &listaCorreos, string dominio){
 	ok = false;
 	}
 	else{
+	fichero >> numElementos;
+	numRedeondeado = (numElementos + 10) - (numElementos % 10) //redondeos a la siguiente
+	inicializar(listaCorreos, numRedeondeado);
 		tCorreo correo;
-		while (cargar(correo, archivo)){
-		
-		insertar(listaCorreos, correo);
+		//while (cargar(correo, archivo)){
+		for(i, i < numElementos, i++){
+		if (cargar(correo, archivo))
+			insertar(listaCorreos, correo);
 		}
 		archivo.close();
 		ok = true;

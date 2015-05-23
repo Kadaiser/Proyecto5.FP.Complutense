@@ -9,7 +9,6 @@ using namespace std;
 void inicializar(tListaRegistros& listaRegistros){
 //void inicializar(tListaRegistros *tRegistroPtr){
 	listaRegistros.contador = 0;
-	//punteroLR->contador = 0;
 }
 
 void cargar(tListaRegistros &listaRegistros, ifstream& archivo){

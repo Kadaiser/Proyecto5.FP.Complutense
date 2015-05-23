@@ -9,6 +9,7 @@ using namespace std;
 
 void inicializar(tListaUsuarios &listaUsuarios){
 	listaUsuarios.contador=0;
+	
 }
 
 

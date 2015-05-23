@@ -15,7 +15,7 @@ tListaRegistros bandejaSalida;
 }tUsuario;
 
 
-typedef tUsuario *tUsuarioPtr = nullptr; //puntero a un usuario
+typedef tUsuario *tUsuarioPtr = new tUsuario; //puntero a un usuario
 
 /**
 * Dado un flujo de archivo (ya abierto), se carga un usuario de fichero
