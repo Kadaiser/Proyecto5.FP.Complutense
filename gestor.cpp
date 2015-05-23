@@ -146,31 +146,18 @@ void enviarCorreo(tGestor& gestor, const tCorreo &correo){
 
 
 
-void borrarCorreo(tGestor& gestor, tListaRegistros& listaRegistros){
+void borrarCorreo(tGestor& gestor, tListaRegistros& listaReg){
 	int numCorreo;
-	int i = 0;
-	string id;
-	bool existe = false;
+
 	cout << "Introduzca el numero correo a borrar: ";
 	cin >> numCorreo;
 
-	if (numCorreo > 0 && numCorreo <= listaRegistros.contador){
-		id = listaRegistros.registro[numCorreo - 1].identificador;
-		if(borrar(listaRegistros, listaRegistros.registro[numCorreo - 1].identificador)){
-			cout << "El mensaje se elimino de tu bandeja correctamente." << endl;
-		
-		while(i < gestor.usuarios.contador && !existe){
-				if((buscar(gestor.usuarios.usuario[i].bandejaEntrada, id) != -1) || (buscar(gestor.usuarios.usuario[i].bandejaSalida, id) != -1))//si no existe el identificador en ninguna lista de registros de ningun usuario, entonces borramos el correo de la lista de correos
-					existe = true;
-					i++;
-			}
-			if(!existe && borrar(gestor.listaCorreos, id))
-			cout << "Tambien ha sido elmininado de la base de datos" << endl;
+	if (numCorreo > 0 && numCorreo <= listaReg.contador){			
+		for (int i=numCorreo-1; i<listaReg.contador; i++){
+			listaReg.registro[i] = listaReg.registro[i+1];
 		}
+		listaReg.contador--;
 	}
-		else
-			cout << "Correo inexistente." << endl;
-	system("pause");
 }
 
 
