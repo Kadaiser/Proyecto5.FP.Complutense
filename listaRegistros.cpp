@@ -6,9 +6,11 @@ using namespace std;
 
 #include "listaRegistros.h"
 
-void inicializar(tListaRegistros& listaRegistros){
-//void inicializar(tListaRegistros *tRegistroPtr){
+void inicializar(tListaRegistros& listaRegistros, int capInicial = CAPINICIAL){ //el 3er parametro se ajusta a el valor constante si no se le pasa dicho parametro
+	listaRegistros.regsitros = new tRegistro [capInicial];
 	listaRegistros.contador = 0;
+	lista capInicial = capInicial;
+	
 }
 
 void cargar(tListaRegistros &listaRegistros, ifstream& archivo){
@@ -32,14 +34,11 @@ void guardar(const tListaRegistros &listaRegistros, ofstream& archivo){
 	}
 }
 
-bool insertar(tListaRegistros &listaRegistros, tRegistro registro){
-	bool ok = false;
+void insertar(tListaRegistros &listaRegistros, tRegistro registro){
 	if(listaRegistros.contador < MAXREGISTROS){
 		listaRegistros.registro[listaRegistros.contador] = registro;
 		listaRegistros.contador++;
-		ok = true;
 	}
-	return ok;
 }
 
 bool borrar(tListaRegistros &listaRegistros, string id){

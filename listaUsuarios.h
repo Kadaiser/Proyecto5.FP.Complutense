@@ -8,11 +8,11 @@ using namespace std;
 const string ficheroUsuarios = "Usuarios.txt";
 const int MAXUSUARIOS = 50;
 
-typedef tUsuarioPtr tArrayUsuarioPtr[MAXUSUARIOS];//Array de punteros a un usuario
+
+typedef tUsuario *tUsuarioPtr; //puntero a un usuario
 
 typedef struct{
-//tUsuario usuarios[MAXUSUARIOS];
-tArrayUsuarioPtr usuarios;
+tUsuarioPtr usuarios[MAXUSUARIOS];
 int contador;
 }tListaUsuarios;
 

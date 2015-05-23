@@ -3,20 +3,16 @@
 
 using namespace std;
 
-const int MAXREGISTROS = 100;
-
 typedef struct{
 string identificador;
 bool leido;
 }tRegistro;
 
-typedef tRegistro *tRegistroPtr = new tRegistro[n];	//Es un tipo definido de puntero que apunta a una estructura de registro
 
-typedef tRegistroPtr tArrayRegistroPtr[MAXREGISTROS]
 typedef struct{
-//tRegistro registro[MAXREGISTROS];
-tArrayRegistroPtr registros;
+tRegistro* registros;//Array dinamico
 int contador;
+int capacidad;
 }tListaRegistros;
 
 //tListaRegistrosPtr punteroLR = &registros; WhereTF goes this?

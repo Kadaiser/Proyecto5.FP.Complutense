@@ -16,7 +16,6 @@ tFecha fecha;
 string identificador;
 } tCorreo;
 
-typedef tCorreo *tCorreoPtr = nullptr;
 /**
 * Recibe un identificador de emisor y devuelve un correo con todos sus datos rellenos
 */

@@ -23,6 +23,8 @@ void apagar(const tGestor &gestor){
 	cout << "Cerrando gestor de correo " << gestor.dominio << endl;
 	guardar(gestor.usuarios, gestor.dominio);
 	guardar(gestor.listaCorreos, gestor.dominio);
+	destruir(gestor.correos);
+	destruir(gestor.usuarios);
 	
 }
 
@@ -132,9 +134,11 @@ void enviarCorreo(tGestor& gestor, const tCorreo &correo){
 					cout << "Bandeja de correo de destinatario llena!!!" << endl;
 				}
 			}
+			else
+				cout << "Bandeja de salida de emisor llena!!" << endl;
 		}
 		else
-			cout << "Bandeja de salida de emisor llena!!" << endl;
+			cout << "No pueden adherirse nuevos correos";
 	}
 	else
 		cout << "Destinatario no encontrado" << endl;

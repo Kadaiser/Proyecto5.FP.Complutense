@@ -55,14 +55,14 @@ void guardar(const tListaCorreos &listaCorreos, string dominio){
 	}
 }
 
-bool insertar(tListaCorreos &listaCorreos, const tCorreo &correo){
-	bool ok = false;
-	if(listaCorreos.contador < MAXCORREOS){
-		listaCorreos.correo[listaCorreos.contador] = correo;
-		listaCorreos.contador++;
-		ok = true;
-	}
-	return ok;
+void insertar(tListaCorreos &listaCorreos, const tCorreo &correo){
+
+	if(listaCorreos.contador == listaCorreos.capacidad){
+		redimensionar(listaCorreos);
+		}
+	listaCorreos.correo[listaCorreos.contador] = correo;
+	listaCorreos.contador++;
+
 }
 
 bool borrar(tListaCorreos &listaCorreos, string id){
@@ -111,4 +111,19 @@ void ordenar_AF(tListaCorreos &listaCorreos){
 		}
 		if (intercambio) i++;
 	}
+}
+
+void redimensionar (tListaCorreos & listaCorreos){
+//crear nuevo array
+tCorreo* correosAmpliado = new tCorreo [];
+//copiar viejo a nuevo
+
+//destruir viejo
+
+//arreglos finales
+listaCorreos.correos = nuevo;
+}
+
+void destruir(tListaCorreos& listaCorreos){
+delete[] listaCorreos.correos;
 }

@@ -9,6 +9,8 @@ using namespace std;
 
 void inicializar(tListaUsuarios &listaUsuarios){
 	listaUsuarios.contador=0;
+	for(int i = 0; i < MAXUSUARIOS)
+	//hay que llenar a nullptr los elementos del array del MAXUSUARIOS
 	
 }
 
@@ -57,8 +59,9 @@ bool aniadir(tListaUsuarios& listaUsuarios, const tUsuario& usuario){
 	bool ok = false;
 	
 	if(listaUsuarios.contador < MAXUSUARIOS){
-		listaUsuarios.usuario[listaUsuarios.contador]= usuario;
+		listaUsuarios.usuario[listaUsuarios.contador]= new tUsuario(usuario);
 		listaUsuarios.contador++;
+
 		ordenarUsuarios(listaUsuarios);
 		ok = true;
 	}
@@ -102,4 +105,12 @@ void ordenarUsuarios(tListaUsuarios& listaUsuarios){
 	}
 	listaUsuarios.usuario[pos] = nuevo;
 		
+}
+
+void destruir(tListaUsuarios& listaUsuarios){
+	for (int = 0; i < listaUsuarios.contador, i++){
+		destruir(listaUsuarios.usuarios[i].bandejaEntrada);
+		destruir(listaUsuarios.usuarios[i].bandejaSalida);
+		delete listaUsuarios.usuarios[i];
+	}
 }

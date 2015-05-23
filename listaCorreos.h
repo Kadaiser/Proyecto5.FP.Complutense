@@ -6,12 +6,10 @@ using namespace std;
 #include "correo.h"
 
 const string ficheroCorreos = "ListaCorreo.txt";
-const int MAXCORREOS = 100;
 
-//typedef tCorreoPtr tArrayCorreoPtr [MAXCORREOS];
+
 typedef struct{
-	//tCorreo correo[MAXCORREOS];
-	//tArrayCorreoPtr correos;
+
 	tCorreo* correos = new tCorreo[10]; //array dinamicos
 	int contador;
 	int capacidad; //indica la capacidad reservada en memoria del ultimo new
@@ -21,8 +19,10 @@ typedef struct{
 /**
 Creacion de array
 hay dos contextos:
-CARGA DE FICHEROS
+1-CARGA DE FICHEROS
 void inicializar;
+
+2-ARRANQUE SIN FICHEROS
 */
 
 /**
