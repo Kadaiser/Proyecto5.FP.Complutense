@@ -144,11 +144,7 @@ void borrarCorreo(tGestor& gestor, tListaRegistros& listaReg){
 
 	if (numCorreo > 0 && numCorreo <= listaReg.contador){			
 		for (int i=numCorreo-1; i<listaReg.contador; i++){
-<<<<<<< HEAD
 			listaReg.registros[i] = listaReg.registros[i+1];
-=======
-			listaReg.registro[i] = listaReg.registro[i+1];
->>>>>>> origin/master
 		}
 		listaReg.contador--;
 	}
