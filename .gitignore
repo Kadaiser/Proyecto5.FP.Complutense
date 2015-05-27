@@ -1,2 +1,4 @@
 .obj
 .exe
+gestor.cpp
+*.cpp
