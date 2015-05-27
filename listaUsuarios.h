@@ -6,14 +6,14 @@ using namespace std;
 #include "usuario.h"
 
 const string ficheroUsuarios = "Usuarios.txt";
-const int MAXUSUARIOS = 50;
+const int MAXUSUARIOS = 2;
 
 
 typedef tUsuario *tUsuarioPtr; //puntero a un usuario
 
 typedef struct{
-tUsuarioPtr usuarios[MAXUSUARIOS];
-int contador;
+	tUsuarioPtr usuarios[MAXUSUARIOS];
+	int contador;
 }tListaUsuarios;
 
 /**
@@ -50,5 +50,7 @@ bool buscarUsuario(const tListaUsuarios& listaUsuarios, string id, int& posicion
 */
 void ordenarUsuarios(tListaUsuarios& listaUsuarios);
 
+
+void destruir(tListaUsuarios& listaUsuarios);
 
 #endif

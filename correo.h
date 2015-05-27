@@ -40,7 +40,7 @@ string obtenerCabecera(const tCorreo &correo);
 /**
 * Dado un flujo de archivo de entrada (ya abierto), lee los datos que corresponden a un correo y lo devuelve. Devuelve false sólo si el correo cargado no es válido.
 */
-bool cargar(tCorreo &correo, ifstream& archivo);
+void cargar(tCorreo &correo, ifstream& archivo);
 
 /**
 * Dado un flujo de archivo de salida (ya abierto), escribe en el flujo los datos que corresponden a un correo

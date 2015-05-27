@@ -1,34 +1,38 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <math.h>
 
 using namespace std;
 
 #include "listaCorreos.h"
 
-void inicializar(tListaCorreos &listaCorreos int capInicial){
-	listaCorreos.correos = new tCorreo [capInicial];
+void inicializar(tListaCorreos &listaCorreos, int capacidad){
+	listaCorreos.correos = new tCorreo [capacidad];
 	listaCorreos.contador = 0;
-	listaCorreos.capacidad = capInicial
+	listaCorreos.capacidad = capacidad;
 }
 
 bool cargar(tListaCorreos &listaCorreos, string dominio){
 	bool ok;
 	ifstream archivo;
 	string nombreFichero = dominio + "_" + ficheroCorreos;
-	
+	float numElementos, numRedondeado;
+	tCorreo correo;
+
 	archivo.open(nombreFichero);
 	if(!archivo.is_open()){
-	ok = false;
+		inicializar(listaCorreos, CORREOS_INICIAL);
+		ok = false;
 	}
 	else{
-	fichero >> numElementos;
-	numRedeondeado = (numElementos + 10) - (numElementos % 10) //redondeos a la siguiente
-	inicializar(listaCorreos, numRedeondeado);
-		tCorreo correo;
-		//while (cargar(correo, archivo)){
-		for(i, i < numElementos, i++){
-		if (cargar(correo, archivo))
+		archivo >> numElementos;		
+		numRedondeado = (ceil(numElementos / 10)) * 10;
+		inicializar(listaCorreos, (int)numRedondeado);
+		
+		for(int i = 0; i < numElementos; i++){
+
+			cargar(correo, archivo);
 			insertar(listaCorreos, correo);
 		}
 		archivo.close();
@@ -43,14 +47,13 @@ void guardar(const tListaCorreos &listaCorreos, string dominio){
 	
 	archivo.open(nombreFichero);
 	if(!archivo.is_open()){
-	cout << "Error al guardar la lista de correos en el fichero" << endl;
+		cout << "Error al guardar la lista de correos en el fichero" << endl;
 	}
 	else{
-		for (int i= 0; i < listaCorreos.contador; i++){
-		
-		guardar(listaCorreos.correo[i], archivo);
-		}
-		archivo << "XXX" << endl;
+		archivo << listaCorreos.contador << endl;
+		for (int i= 0; i < listaCorreos.contador; i++){		
+			guardar(listaCorreos.correos[i], archivo);
+		}		
 		archivo.close();
 	}
 }
@@ -59,8 +62,8 @@ void insertar(tListaCorreos &listaCorreos, const tCorreo &correo){
 
 	if(listaCorreos.contador == listaCorreos.capacidad){
 		redimensionar(listaCorreos);
-		}
-	listaCorreos.correo[listaCorreos.contador] = correo;
+	}
+	listaCorreos.correos[listaCorreos.contador] = correo;
 	listaCorreos.contador++;
 
 }
@@ -71,7 +74,7 @@ bool borrar(tListaCorreos &listaCorreos, string id){
 	buscar(listaCorreos, id , posicion);
 	if(posicion != -1){
 				for (posicion; posicion < listaCorreos.contador; posicion++){
-			listaCorreos.correo[posicion] = listaCorreos.correo[posicion+1];
+			listaCorreos.correos[posicion] = listaCorreos.correos[posicion+1];
 		}
 		listaCorreos.contador--;
 		borrado = true;
@@ -84,7 +87,7 @@ bool buscar(const tListaCorreos &listaCorreos, string id, int &pos){
 
 	pos = 0;
 	while (pos < listaCorreos.contador && !encontrado){
-		if (id == listaCorreos.correo[pos].identificador){
+		if (id == listaCorreos.correos[pos].identificador){
 			encontrado = true;
 		}
 		else{
@@ -101,11 +104,11 @@ void ordenar_AF(tListaCorreos &listaCorreos){
 	while((i<listaCorreos.contador) && intercambio){
 		intercambio = false;
 		for (int j = listaCorreos.contador-1; j > i; j--){
-			if(listaCorreos.correo[j] < listaCorreos.correo[j-1]){
+			if(listaCorreos.correos[j] < listaCorreos.correos[j-1]){
 				tCorreo tmp;
-				tmp = listaCorreos.correo[j];
-				listaCorreos.correo[j] = listaCorreos.correo[j-1];
-				listaCorreos.correo[j-1] = tmp;
+				tmp = listaCorreos.correos[j];
+				listaCorreos.correos[j] = listaCorreos.correos[j-1];
+				listaCorreos.correos[j-1] = tmp;
 				intercambio = true;
 			}
 		}
@@ -113,17 +116,21 @@ void ordenar_AF(tListaCorreos &listaCorreos){
 	}
 }
 
-void redimensionar (tListaCorreos & listaCorreos){
-//crear nuevo array
-tCorreo* correosAmpliado = new tCorreo [];
-//copiar viejo a nuevo
+void redimensionar(tListaCorreos & listaCorreos){	
+	int i = 0;
+	int nuevaCapacidad = (listaCorreos.capacidad * 3)/2+1;
+	tListaCorreos nuevaLista; //crear nuevo array
+		
+	inicializar(nuevaLista, nuevaCapacidad);
+		
+	//copiar viejo a nuevo
+	while ( i < listaCorreos.contador ){		
+		insertar(nuevaLista, listaCorreos.correos[i++]);		
+	}
+	listaCorreos = nuevaLista;
 
-//destruir viejo
-
-//arreglos finales
-listaCorreos.correos = nuevo;
 }
 
 void destruir(tListaCorreos& listaCorreos){
-delete[] listaCorreos.correos;
+	delete[] listaCorreos.correos;
 }

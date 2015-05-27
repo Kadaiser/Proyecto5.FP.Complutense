@@ -27,7 +27,7 @@ bool arrancar(tGestor& gestor, string dominio);
 /**
 * Esta operación apaga el gestor y guarda para ello las listas de usuarios y de correos del dominio que se encontrase activo en ese momento.
 */
-void apagar(const tGestor &gestor);
+void apagar(tGestor &gestor);
 
 /**
 *Lee los datos de usuario necesarios para crear una cuenta (id y contraseña) y si el id de usuario no existe y hay espacio en la lista de usuarios

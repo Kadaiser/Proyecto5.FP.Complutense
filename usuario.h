@@ -8,10 +8,10 @@ const string CENTINELA= "XXX";
 #include "listaRegistros.h"
 
 typedef struct{
-string identificador;
-string contrasenia;
-tListaRegistros bandejaEntrada;
-tListaRegistros bandejaSalida;
+	string identificador;
+	string contrasenia;
+	tListaRegistros bandejaEntrada;
+	tListaRegistros bandejaSalida;
 }tUsuario;
 
 

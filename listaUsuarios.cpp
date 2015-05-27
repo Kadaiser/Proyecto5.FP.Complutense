@@ -9,9 +9,10 @@ using namespace std;
 
 void inicializar(tListaUsuarios &listaUsuarios){
 	listaUsuarios.contador=0;
-	for(int i = 0; i < MAXUSUARIOS)
 	//hay que llenar a nullptr los elementos del array del MAXUSUARIOS
-	
+	for(int i = 0; i < MAXUSUARIOS; i++){
+		listaUsuarios.usuarios[i] = nullptr;
+	}
 }
 
 
@@ -23,12 +24,12 @@ bool cargar(tListaUsuarios& listaUsuarios, string dominio){
 
 	archivo.open(nombreFichero);
 	if(!archivo.is_open()){
-	ok = false;
+		ok = false;
 	}
 	else{
 		tUsuario usuario;
 		while (cargar(usuario,archivo)){
-		aniadir(listaUsuarios, usuario);
+			aniadir(listaUsuarios, usuario);
 		}
 		archivo.close();
 		ok = true;
@@ -42,12 +43,11 @@ void guardar(const tListaUsuarios& listaUsuarios, string dominio){
 	
 	archivo.open(nombreFichero);
 	if(!archivo.is_open()){
-	cout << "Error al guardar la lista de correos en el fichero" << endl;
+		cout << "Error al guardar la lista de correos en el fichero" << endl;
 	}
 	else{
-		for (int i= 0; i < listaUsuarios.contador; i++){
-		
-		guardar(listaUsuarios.usuario[i], archivo);
+		for (int i= 0; i < listaUsuarios.contador; i++){		
+			guardar(*listaUsuarios.usuarios[i], archivo);
 		}
 		archivo << "XXX";
 		archivo.close();
@@ -59,7 +59,7 @@ bool aniadir(tListaUsuarios& listaUsuarios, const tUsuario& usuario){
 	bool ok = false;
 	
 	if(listaUsuarios.contador < MAXUSUARIOS){
-		listaUsuarios.usuario[listaUsuarios.contador]= new tUsuario(usuario);
+		listaUsuarios.usuarios[listaUsuarios.contador]= new tUsuario(usuario);
 		listaUsuarios.contador++;
 
 		ordenarUsuarios(listaUsuarios);
@@ -75,10 +75,10 @@ bool buscarUsuario(const tListaUsuarios& listaUsuarios, string id, int& posicion
 	while(ini<=fin && !encontrado){		//Mientras que mi rango de busqueda exista y no haya encontrado el elemento
 		mitad = (ini+fin) / 2;
 
-		if(id < listaUsuarios.usuario[mitad].identificador){
+		if(id < listaUsuarios.usuarios[mitad]->identificador){
 		fin = mitad - 1;
 		}
-		else if(listaUsuarios.usuario[mitad].identificador < id){
+		else if(listaUsuarios.usuarios[mitad]->identificador < id){
 		ini = mitad + 1;
 		}
 		else{
@@ -94,23 +94,23 @@ bool buscarUsuario(const tListaUsuarios& listaUsuarios, string id, int& posicion
 /* Variante de ordenacion por insercion */
 void ordenarUsuarios(tListaUsuarios& listaUsuarios){
 	int pos=0;
-	tUsuario nuevo;
+	tUsuarioPtr nuevo;
 	
-	nuevo = listaUsuarios.usuario[listaUsuarios.contador-1];
-	while ((pos < listaUsuarios.contador-1) && !(listaUsuarios.usuario[pos].identificador > nuevo.identificador)) {
+	nuevo = listaUsuarios.usuarios[listaUsuarios.contador-1];
+	while ((pos < listaUsuarios.contador-1) && !(listaUsuarios.usuarios[pos]->identificador > nuevo->identificador)) {
 		pos++;
 	}
 	for (int j = listaUsuarios.contador-1; j > pos; j--) {
-		listaUsuarios.usuario[j] = listaUsuarios.usuario[j-1];
+		listaUsuarios.usuarios[j] = listaUsuarios.usuarios[j-1];
 	}
-	listaUsuarios.usuario[pos] = nuevo;
+	listaUsuarios.usuarios[pos] = nuevo;
 		
 }
 
 void destruir(tListaUsuarios& listaUsuarios){
-	for (int = 0; i < listaUsuarios.contador, i++){
-		destruir(listaUsuarios.usuarios[i].bandejaEntrada);
-		destruir(listaUsuarios.usuarios[i].bandejaSalida);
+	for (int i = 0; i < listaUsuarios.contador; i++){
+		destruir(listaUsuarios.usuarios[i]->bandejaEntrada);
+		destruir(listaUsuarios.usuarios[i]->bandejaSalida);
 		delete listaUsuarios.usuarios[i];
 	}
 }

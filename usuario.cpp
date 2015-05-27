@@ -32,8 +32,8 @@ void guardar(const tUsuario& usuario, ofstream& archivo){
 void inicializar(tUsuario& usuario, string id, string contrasenia){
 	usuario.identificador = id;
 	usuario.contrasenia = contrasenia;
-	inicializar(usuario.bandejaEntrada);
-	inicializar(usuario.bandejaSalida);
+	inicializar(usuario.bandejaEntrada, REGISTROS_INICIAL);
+	inicializar(usuario.bandejaSalida, REGISTROS_INICIAL);
 }
 
 bool validarContrasenia(const tUsuario &usuario, string contrasenia){

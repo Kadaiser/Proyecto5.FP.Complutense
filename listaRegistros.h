@@ -3,16 +3,18 @@
 
 using namespace std;
 
+const int REGISTROS_INICIAL = 2;
+
 typedef struct{
-string identificador;
-bool leido;
+	string identificador;
+	bool leido;
 }tRegistro;
 
 
 typedef struct{
-tRegistro* registros;//Array dinamico
-int contador;
-int capacidad;
+	tRegistro* registros;//Array dinamico
+	int contador;
+	int capacidad;
 }tListaRegistros;
 
 //tListaRegistrosPtr punteroLR = &registros; WhereTF goes this?
@@ -21,7 +23,7 @@ int capacidad;
 /**
 * Inicializa la lista
 */
-void inicializar(tListaRegistros &listaRegistros);
+void inicializar(tListaRegistros& listaRegistros, int capInicial);
 
 /**
 * Dado un flujo de archivo de entrada (ya abierto), 
@@ -40,7 +42,7 @@ void guardar(const tListaRegistros &listaRegistros, ofstream& archivo);
 * ya que se insertará el registro correspondiente en la lista de registros que representa su bandeja de salida,
 * y también en las listas de registros que representan las bandejas de entrada de cada uno de los destinatarios del correo
 */
-bool insertar(tListaRegistros &listaRegistros, tRegistro registro);
+void insertar(tListaRegistros &listaRegistros, tRegistro registro);
 
 /**
 * Dado un identificador de correo, busca el registro correspondiente y si lo encuentra lo elimina de la lista (¡sin dejar huecos!). 
@@ -63,4 +65,9 @@ int buscar(const tListaRegistros &listaRegistros, string id);
 *  Dado un flujo de archivo de entrada (ya abierto),  cargar los datos en la estrucutra de un registro
 */
 void cargarRegistro(tRegistro& registro, ifstream& archivo);
+
+void redimensionar (tListaRegistros &listaRegistros);
+
+void destruir(tListaRegistros &listaRegistros);
+
 #endif

@@ -1,27 +1,27 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <math.h>
 
 using namespace std;
 
 #include "listaRegistros.h"
 
-void inicializar(tListaRegistros& listaRegistros, int capInicial = CAPINICIAL){ //el 3er parametro se ajusta a el valor constante si no se le pasa dicho parametro
-	listaRegistros.regsitros = new tRegistro [capInicial];
+void inicializar(tListaRegistros& listaRegistros, int capInicial){ //el 3er parametro se ajusta a el valor constante si no se le pasa dicho parametro
+	listaRegistros.registros = new tRegistro[capInicial];
 	listaRegistros.contador = 0;
-	lista capInicial = capInicial;
-	
+	listaRegistros.capacidad = capInicial;	
 }
 
 void cargar(tListaRegistros &listaRegistros, ifstream& archivo){
-	int elementos;
+	float numElementos, numRedondeado;
 	tRegistro registro; 
-	
-	
-	inicializar(listaRegistros);
-	archivo >> elementos;
-	if(elementos>0){
-		for(int i = 0; i < elementos; i++){
+				
+	archivo >> numElementos;
+	numRedondeado = (ceil(numElementos / 10)) * 10; //redondeos a la siguiente
+	inicializar(listaRegistros, (int)numRedondeado);
+	if(numElementos>0){
+		for(int i = 0; i < numElementos; i++){
 			cargarRegistro(registro, archivo);
 			insertar(listaRegistros, registro);
 		}
@@ -30,15 +30,16 @@ void cargar(tListaRegistros &listaRegistros, ifstream& archivo){
 
 void guardar(const tListaRegistros &listaRegistros, ofstream& archivo){
 	for(int i= 0; i < listaRegistros.contador; i++){
-		archivo << listaRegistros.registro[i].identificador << " " << listaRegistros.registro[i].leido << endl;
+		archivo << listaRegistros.registros[i].identificador << " " << listaRegistros.registros[i].leido << endl;
 	}
 }
 
 void insertar(tListaRegistros &listaRegistros, tRegistro registro){
-	if(listaRegistros.contador < MAXREGISTROS){
-		listaRegistros.registro[listaRegistros.contador] = registro;
-		listaRegistros.contador++;
+	if(listaRegistros.contador == listaRegistros.capacidad){
+		redimensionar(listaRegistros);
 	}
+	listaRegistros.registros[listaRegistros.contador] = registro;
+	listaRegistros.contador++;
 }
 
 bool borrar(tListaRegistros &listaRegistros, string id){
@@ -46,7 +47,7 @@ bool borrar(tListaRegistros &listaRegistros, string id){
 	int posicion = buscar(listaRegistros,id);
 	if(posicion != -1){
 			for (posicion; posicion < listaRegistros.contador; posicion++){
-				listaRegistros.registro[posicion] = listaRegistros.registro[posicion+1];
+				listaRegistros.registros[posicion] = listaRegistros.registros[posicion+1];
 		}
 		listaRegistros.contador--;
 		borrado = true;
@@ -59,7 +60,7 @@ bool correoLeido(tListaRegistros &listaRegistros, string id){
 	int posicion = buscar(listaRegistros,id);
 
 	if(posicion != -1){
-		listaRegistros.registro[posicion].leido = true;
+		listaRegistros.registros[posicion].leido = true;
 		check = true;
 	}	
 	return check;
@@ -74,10 +75,10 @@ int buscar(const tListaRegistros &listaRegistros, string id){
 	while(ini<=fin && !encontrado){		//Mientras que mi rango de busqueda exista y no haya encontrado el elemento
 		mitad = (ini+fin) / 2;
 
-		if(id < listaRegistros.registro[mitad].identificador){
+		if(id < listaRegistros.registros[mitad].identificador){
 		fin = mitad - 1;
 		}
-		else if(listaRegistros.registro[mitad].identificador < id){
+		else if(listaRegistros.registros[mitad].identificador < id){
 		ini = mitad + 1;
 		}
 		else{
@@ -94,4 +95,23 @@ int buscar(const tListaRegistros &listaRegistros, string id){
 void cargarRegistro(tRegistro& registro, ifstream& archivo){
 		archivo >>registro.identificador;
 		archivo >>registro.leido;
+}
+
+
+void redimensionar (tListaRegistros &listaRegistros){
+	int i = 0;
+	int nuevaCapacidad = (listaRegistros.capacidad * 3)/2+1;
+	tListaRegistros nuevaLista; //crear nuevo array
+		
+	inicializar(nuevaLista, nuevaCapacidad);
+		
+
+	while ( i < listaRegistros.contador ){			//copiar viejo a nuevo
+		insertar(nuevaLista, listaRegistros.registros[i++]);		
+	}
+	listaRegistros = nuevaLista; //Se sobreescriben los punteros de la vieja lista
+}
+
+void destruir(tListaRegistros &listaRegistros){
+	delete[] listaRegistros.registros;
 }

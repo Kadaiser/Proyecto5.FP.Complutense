@@ -51,22 +51,17 @@ string obtenerCabecera(const tCorreo &correo){
 	return cabecera;
 }
 
-bool cargar(tCorreo &correo, ifstream& archivo){
-
-	bool ok= true;
+void cargar(tCorreo &correo, ifstream& archivo){
 	string cuerpo, fecha;
 	
 	archivo >> correo.identificador;
-	if(correo.identificador == CENTINELACORREO) ok = false;
-	else{
-		archivo >> correo.fecha;
-		getline(archivo, fecha);
-		getline(archivo, correo.emisor);
-		getline(archivo, correo.destinatario);
-		getline(archivo, correo.asunto);		
-		leerCuerpo(correo.cuerpo, archivo);
-	}
-	return ok;
+	archivo >> correo.fecha;
+	getline(archivo, fecha);
+	getline(archivo, correo.emisor);
+	getline(archivo, correo.destinatario);
+	getline(archivo, correo.asunto);		
+	leerCuerpo(correo.cuerpo, archivo);
+
 }
 
 void guardar(const tCorreo &correo, ofstream& archivo){

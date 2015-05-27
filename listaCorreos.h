@@ -5,12 +5,12 @@ using namespace std;
 
 #include "correo.h"
 
+const int CORREOS_INICIAL = 4;
 const string ficheroCorreos = "ListaCorreo.txt";
-
 
 typedef struct{
 
-	tCorreo* correos = new tCorreo[10]; //array dinamicos
+	tCorreo* correos; //array dinamicos
 	int contador;
 	int capacidad; //indica la capacidad reservada en memoria del ultimo new
 } tListaCorreos;
@@ -28,7 +28,7 @@ void inicializar;
 /**
 *  Inicializa la lista
 */
-void inicializar(tListaCorreos &listaCorreos, int capacidadInicial);
+void inicializar(tListaCorreos &listaCorreos, int capacidad);
 
 /**
 * Implementa la carga de la lista de correos desde el fichero de correos de nombre <NombreDominio>_correos.txt.
@@ -45,7 +45,7 @@ void guardar(const tListaCorreos &listaCorreos, string dominio);
 * Dado un correo, si hay espacio en la lista, lo coloca en la posición de la lista que le corresponda 
 * de acuerdo con su identificador y devuelve true. Si no lo ha podido colocar devuelve false
 */
-bool insertar(tListaCorreos &listaCorreos, const tCorreo &correo);
+void insertar(tListaCorreos &listaCorreos, const tCorreo &correo);
 
 /**
 * Dado un identificador de correo, busca el correo correspondiente y si lo encuentra lo elimina de la lista. 
@@ -64,5 +64,9 @@ bool buscar(const tListaCorreos &listaCorreos, string id, int &pos);
 * Como es una clave de ordenación doble, habrá que redefinir el operador de comparación en el módulo que corresponda.
 */
 void ordenar_AF(tListaCorreos &listaCorreos);
+
+void redimensionar(tListaCorreos & listaCorreos);
+
+void destruir(tListaCorreos& listaCorreos);
 
 #endif
