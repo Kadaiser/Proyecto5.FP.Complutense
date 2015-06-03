@@ -14,7 +14,7 @@ typedef struct{
 	tListaRegistros bandejaSalida;
 }tUsuario;
 
-
+typedef tUsuario* usuarioPtr;
 /**
 * Dado un flujo de archivo (ya abierto), se carga un usuario de fichero
 */
