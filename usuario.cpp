@@ -41,4 +41,3 @@ bool validarContrasenia(const tUsuario &usuario, string contrasenia){
 	if(contrasenia == usuario.contrasenia) ok = true;
 return ok;
 }
-

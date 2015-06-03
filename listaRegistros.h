@@ -26,7 +26,7 @@ typedef struct{
 void inicializar(tListaRegistros& listaRegistros, int capInicial);
 
 /**
-* Dado un flujo de archivo de entrada (ya abierto), 
+* Dado un flujo de archivo de entrada (ya abierto),
 * lee los datos que corresponden a una lista de registros y la devuelve.
 */
 void cargar(tListaRegistros &listaRegistros, ifstream& archivo);
@@ -37,27 +37,27 @@ void cargar(tListaRegistros &listaRegistros, ifstream& archivo);
 void guardar(const tListaRegistros &listaRegistros, ofstream& archivo);
 
 /**
-* Dado un registro lo inserta al final de la lista. Si la lista está llena devuelve false, 
-* en otro caso devuelve true. Este subprograma se ejecutará cuando un usuario envíe un correo 
-* ya que se insertará el registro correspondiente en la lista de registros que representa su bandeja de salida,
-* y también en las listas de registros que representan las bandejas de entrada de cada uno de los destinatarios del correo
+* Dado un registro lo inserta al final de la lista. Si la lista estï¿½ llena devuelve false,
+* en otro caso devuelve true. Este subprograma se ejecutarï¿½ cuando un usuario envï¿½e un correo
+* ya que se insertarï¿½ el registro correspondiente en la lista de registros que representa su bandeja de salida,
+* y tambiï¿½n en las listas de registros que representan las bandejas de entrada de cada uno de los destinatarios del correo
 */
 void insertar(tListaRegistros &listaRegistros, tRegistro registro);
 
 /**
-* Dado un identificador de correo, busca el registro correspondiente y si lo encuentra lo elimina de la lista (¡sin dejar huecos!). 
-* Si no lo encuentra, devuelve false, en otro caso devuelve true. Este subprograma representa la acción de un usuario del borrado de un determinado correo de una de sus bandejas.
-* OJO: esta operación sólo supone que el registro es borrado de la lista de registros, pero el correo seguirá existiendo en la lista de correos.
+* Dado un identificador de correo, busca el registro correspondiente y si lo encuentra lo elimina de la lista (ï¿½sin dejar huecos!).
+* Si no lo encuentra, devuelve false, en otro caso devuelve true. Este subprograma representa la acciï¿½n de un usuario del borrado de un determinado correo de una de sus bandejas.
+* OJO: esta operaciï¿½n sï¿½lo supone que el registro es borrado de la lista de registros, pero el correo seguirï¿½ existiendo en la lista de correos.
 */
 bool borrar(tListaRegistros &listaRegistros, string id);
 
 /**
-* Dado un identificador de correo, busca el correspondiente registro y pone el indicador de leído a true. La operación devuelve un booleano indicando si se encontró o no el registro.
+* Dado un identificador de correo, busca el correspondiente registro y pone el indicador de leï¿½do a true. La operaciï¿½n devuelve un booleano indicando si se encontrï¿½ o no el registro.
 */
 bool correoLeido(tListaRegistros &listaRegistros, string id);
 
 /**
-* Dado un identificador de correo y la lista, devuelve, si dicho identificador existe en la lista, su posición, y si no existe devuelve -1.
+* Dado un identificador de correo y la lista, devuelve, si dicho identificador existe en la lista, su posiciï¿½n, y si no existe devuelve -1.
 */
 int buscar(const tListaRegistros &listaRegistros, string id);
 

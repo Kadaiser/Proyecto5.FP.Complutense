@@ -54,7 +54,7 @@ void leerCuerpo(string& cuerpo, ifstream& archivo);
 
 /**
 * Recibe una variable tipo string para solicitar al usuario rellenarla a traves de la consola, compone el campo destinatario de un correo.
-* Solicitara en una primera fase el primer destinatario 
+* Solicitara en una primera fase el primer destinatario
 */
 void correoDestino(string& destinatario);
 
@@ -75,7 +75,7 @@ void correoCuerpo(string& cuerpo);
 bool operator< (const tCorreo & correo1, const tCorreo & correo2);
 
 /**
-* Funcion que recibe u correo elimina la concatenacion "Re: " del asunto en caso de que lo hubiere 
+* Funcion que recibe u correo elimina la concatenacion "Re: " del asunto en caso de que lo hubiere
 */
 void quitarRe(tCorreo & correo);
 

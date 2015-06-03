@@ -29,7 +29,9 @@ bool cargar(tListaUsuarios& listaUsuarios, string dominio){
 	else{
 		tUsuario usuario;
 		while (cargar(usuario,archivo)){
+			cout<< "cargado usuario";
 			aniadir(listaUsuarios, usuario);
+			system("pause");
 		}
 		archivo.close();
 		ok = true;
@@ -40,13 +42,13 @@ bool cargar(tListaUsuarios& listaUsuarios, string dominio){
 void guardar(const tListaUsuarios& listaUsuarios, string dominio){
 	ofstream archivo;
 	string nombreFichero = dominio + "_" + ficheroUsuarios;
-	
+
 	archivo.open(nombreFichero);
 	if(!archivo.is_open()){
 		cout << "Error al guardar la lista de correos en el fichero" << endl;
 	}
 	else{
-		for (int i= 0; i < listaUsuarios.contador; i++){		
+		for (int i= 0; i < listaUsuarios.contador; i++){
 			guardar(*listaUsuarios.usuarios[i], archivo);
 		}
 		archivo << "XXX";
@@ -57,12 +59,22 @@ void guardar(const tListaUsuarios& listaUsuarios, string dominio){
 
 bool aniadir(tListaUsuarios& listaUsuarios, const tUsuario& usuario){
 	bool ok = false;
-	
+	int pos;
+
 	if(listaUsuarios.contador < MAXUSUARIOS){
+
+		/* ORIGINAL
 		listaUsuarios.usuarios[listaUsuarios.contador]= new tUsuario(usuario);
 		listaUsuarios.contador++;
-
 		ordenarUsuarios(listaUsuarios);
+		ok = true;
+		*/
+
+		buscarUsuario(listaUsuarios, usuario.identificador, pos);	//buscamos la posicion del usuario donde deberia estar en la lista
+		for(int i = listaUsuarios.contador; i > pos; i --)	//recorremos el array desde la ultima posicion hasta la posicion indicada
+			listaUsuarios.usuarios[i] = listaUsuarios.usuarios[i-1]; //deplazamos los punteros una posion a la derecha
+		listaUsuarios.usuarios[pos]= new tUsuario(usuario); //se inserta el nuevo usuario en la posicion indicada
+		listaUsuarios.contador++; //incrementamos el contador
 		ok = true;
 	}
 	return ok;
@@ -87,24 +99,8 @@ bool buscarUsuario(const tListaUsuarios& listaUsuarios, string id, int& posicion
 	}
 	if(encontrado) posicion = mitad;
 	else posicion = ini;
-	
-	return encontrado;
-}
 
-/* Variante de ordenacion por insercion */
-void ordenarUsuarios(tListaUsuarios& listaUsuarios){
-	int pos=0;
-	tUsuarioPtr nuevo;
-	
-	nuevo = listaUsuarios.usuarios[listaUsuarios.contador-1];
-	while ((pos < listaUsuarios.contador-1) && !(listaUsuarios.usuarios[pos]->identificador > nuevo->identificador)) {
-		pos++;
-	}
-	for (int j = listaUsuarios.contador-1; j > pos; j--) {
-		listaUsuarios.usuarios[j] = listaUsuarios.usuarios[j-1];
-	}
-	listaUsuarios.usuarios[pos] = nuevo;
-		
+	return encontrado;
 }
 
 void destruir(tListaUsuarios& listaUsuarios){

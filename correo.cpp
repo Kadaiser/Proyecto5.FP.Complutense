@@ -24,7 +24,7 @@ void correoContestacion(const tCorreo &correoOriginal, tCorreo &correo, string e
 		correo.identificador = correo.emisor + "_" + to_string(correo.fecha);
 		correo.destinatario = correoOriginal.emisor;
 		correo.asunto = "Re: " + correoOriginal.asunto;
-		
+
 		correoCuerpo(cuerpoRespuesta);
 		correo.cuerpo = cuerpoRespuesta;
 		for(int i=0; i<80;i++) correo.cuerpo += "-";
@@ -53,13 +53,13 @@ string obtenerCabecera(const tCorreo &correo){
 
 void cargar(tCorreo &correo, ifstream& archivo){
 	string cuerpo, fecha;
-	
+
 	archivo >> correo.identificador;
 	archivo >> correo.fecha;
 	getline(archivo, fecha);
 	getline(archivo, correo.emisor);
 	getline(archivo, correo.destinatario);
-	getline(archivo, correo.asunto);		
+	getline(archivo, correo.asunto);
 	leerCuerpo(correo.cuerpo, archivo);
 
 }
@@ -109,18 +109,18 @@ void correoCuerpo(string& cuerpo){
 }
 
 
-bool operator< (const tCorreo & correo1, const tCorreo & correo2){
+bool operator> (const tCorreo & correo1, const tCorreo & correo2){
 	bool esMenor = true;
 	tCorreo correo1aux = correo1;
 	tCorreo correo2aux = correo2;
-	
+
 	quitarRe(correo1aux);
 	quitarRe(correo2aux);
-	
-		if(correo2aux.asunto < correo1aux.asunto)
+
+		if(correo2aux.asunto > correo1aux.asunto)
 			esMenor = false;
 		else if(correo2aux.asunto == correo1aux.asunto){
-			if(correo2aux.fecha < correo1aux.fecha)
+			if(correo2aux.fecha > correo1aux.fecha)
 				esMenor = false;
 			}
 	return esMenor;

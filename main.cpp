@@ -38,7 +38,7 @@ int opcion;
 				if(crearCuenta(gestor))
 					gestionarSesion(gestor);
 				break;
-			}	
+			}
 		}while(opcion != 0);
 		apagar(gestor);
 	system("pause");
@@ -54,7 +54,7 @@ int menu(){
 		menuEntrada();
 		cin >> opcion;
 		cin.sync();
-		while(opcion <0 || opcion >2){		
+		while(opcion <0 || opcion >2){
 			cin >> opcion;
 			cin.sync();
 		}
@@ -62,11 +62,11 @@ int menu(){
 }
 
 void menuEntrada(){
-	
+
 		cout << "Elija la opcion deseada:" << endl;
 		cout << "1- Acceder a mi cuenta de correo" << endl;
 		cout << "2- Crear cuenta de correo" << endl << endl;
 		cout << "0- Salir" << endl;
 		cout << "Opcion: ";
-	
+
 }

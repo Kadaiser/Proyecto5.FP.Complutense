@@ -26,10 +26,10 @@ bool cargar(tListaCorreos &listaCorreos, string dominio){
 		ok = false;
 	}
 	else{
-		archivo >> numElementos;		
+		archivo >> numElementos;
 		numRedondeado = (ceil(numElementos / 10)) * 10;
 		inicializar(listaCorreos, (int)numRedondeado);
-		
+
 		for(int i = 0; i < numElementos; i++){
 
 			cargar(correo, archivo);
@@ -44,16 +44,16 @@ bool cargar(tListaCorreos &listaCorreos, string dominio){
 void guardar(const tListaCorreos &listaCorreos, string dominio){
 	ofstream archivo;
 	string nombreFichero = dominio + "_" + ficheroCorreos;
-	
+
 	archivo.open(nombreFichero);
 	if(!archivo.is_open()){
 		cout << "Error al guardar la lista de correos en el fichero" << endl;
 	}
 	else{
 		archivo << listaCorreos.contador << endl;
-		for (int i= 0; i < listaCorreos.contador; i++){		
+		for (int i= 0; i < listaCorreos.contador; i++){
 			guardar(listaCorreos.correos[i], archivo);
-		}		
+		}
 		archivo.close();
 	}
 }
@@ -92,7 +92,7 @@ bool buscar(const tListaCorreos &listaCorreos, string id, int &pos){
 		}
 		else{
 			pos++;
-		}		
+		}
 	}
 	return encontrado;
 }
@@ -100,11 +100,11 @@ bool buscar(const tListaCorreos &listaCorreos, string id, int &pos){
 void ordenar_AF(tListaCorreos &listaCorreos){
 	bool intercambio = true;
 	int i = 0;
-	
+
 	while((i<listaCorreos.contador) && intercambio){
 		intercambio = false;
 		for (int j = listaCorreos.contador-1; j > i; j--){
-			if(listaCorreos.correos[j] < listaCorreos.correos[j-1]){
+			if(listaCorreos.correos[j] > listaCorreos.correos[j-1]){
 				tCorreo tmp;
 				tmp = listaCorreos.correos[j];
 				listaCorreos.correos[j] = listaCorreos.correos[j-1];
@@ -116,16 +116,16 @@ void ordenar_AF(tListaCorreos &listaCorreos){
 	}
 }
 
-void redimensionar(tListaCorreos & listaCorreos){	
+void redimensionar(tListaCorreos & listaCorreos){
 	int i = 0;
 	int nuevaCapacidad = (listaCorreos.capacidad * 3)/2+1;
 	tListaCorreos nuevaLista; //crear nuevo array
-		
+
 	inicializar(nuevaLista, nuevaCapacidad);
-		
+
 	//copiar viejo a nuevo
-	while ( i < listaCorreos.contador ){		
-		insertar(nuevaLista, listaCorreos.correos[i++]);		
+	while ( i < listaCorreos.contador ){
+		insertar(nuevaLista, listaCorreos.correos[i++]);
 	}
 	listaCorreos = nuevaLista;
 

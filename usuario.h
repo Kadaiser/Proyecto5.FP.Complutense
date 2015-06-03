@@ -26,12 +26,12 @@ bool cargar(tUsuario& usuario, ifstream& archivo);
 void guardar(const tUsuario& usuario, ofstream& archivo);
 
 /**
-* Recibe un identificador de usuario y una contraseña y los asigna al usuario.
+* Recibe un identificador de usuario y una contraseï¿½a y los asigna al usuario.
 */
 void inicializar(tUsuario& usuario, string id, string contrasenia);
 
 /**
-* Recibe una contraseña y un usuario y devuelve si la contraseña es correcta o no.
+* Recibe una contraseï¿½a y un usuario y devuelve si la contraseï¿½a es correcta o no.
 */
 bool validarContrasenia(const tUsuario &usuario, string contrasenia);
 

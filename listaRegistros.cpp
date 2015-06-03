@@ -10,13 +10,13 @@ using namespace std;
 void inicializar(tListaRegistros& listaRegistros, int capInicial){ //el 3er parametro se ajusta a el valor constante si no se le pasa dicho parametro
 	listaRegistros.registros = new tRegistro[capInicial];
 	listaRegistros.contador = 0;
-	listaRegistros.capacidad = capInicial;	
+	listaRegistros.capacidad = capInicial;
 }
 
 void cargar(tListaRegistros &listaRegistros, ifstream& archivo){
 	float numElementos, numRedondeado;
-	tRegistro registro; 
-				
+	tRegistro registro;
+
 	archivo >> numElementos;
 	numRedondeado = (ceil(numElementos / 10)) * 10; //redondeos a la siguiente
 	inicializar(listaRegistros, (int)numRedondeado);
@@ -62,16 +62,16 @@ bool correoLeido(tListaRegistros &listaRegistros, string id){
 	if(posicion != -1){
 		listaRegistros.registros[posicion].leido = true;
 		check = true;
-	}	
+	}
 	return check;
 }
 
 int buscar(const tListaRegistros &listaRegistros, string id){
 	int posicion;
 	int ini = 0, fin = listaRegistros.contador-1, mitad;
-	
+
 	bool encontrado = false;			//Por defecto no se ha econtrado el elemento que se busca
-	
+
 	while(ini<=fin && !encontrado){		//Mientras que mi rango de busqueda exista y no haya encontrado el elemento
 		mitad = (ini+fin) / 2;
 
@@ -87,7 +87,7 @@ int buscar(const tListaRegistros &listaRegistros, string id){
 	}
 	if(encontrado) posicion = mitad;
 	else posicion = -1;
-	
+
 	return posicion;
 }
 
@@ -102,12 +102,12 @@ void redimensionar (tListaRegistros &listaRegistros){
 	int i = 0;
 	int nuevaCapacidad = (listaRegistros.capacidad * 3)/2+1;
 	tListaRegistros nuevaLista; //crear nuevo array
-		
+
 	inicializar(nuevaLista, nuevaCapacidad);
-		
+
 
 	while ( i < listaRegistros.contador ){			//copiar viejo a nuevo
-		insertar(nuevaLista, listaRegistros.registros[i++]);		
+		insertar(nuevaLista, listaRegistros.registros[i++]);
 	}
 	listaRegistros = nuevaLista; //Se sobreescriben los punteros de la vieja lista
 }
