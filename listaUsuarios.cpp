@@ -29,9 +29,7 @@ bool cargar(tListaUsuarios& listaUsuarios, string dominio){
 	else{
 		tUsuario usuario;
 		while (cargar(usuario,archivo)){
-			cout<< "cargado usuario";
 			aniadir(listaUsuarios, usuario);
-			system("pause");
 		}
 		archivo.close();
 		ok = true;
