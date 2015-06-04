@@ -16,7 +16,7 @@ tFecha fecha;
 string identificador;
 } tCorreo;
 
-typedef tCorreo* correoPtr;
+
 /**
 * Recibe un identificador de emisor y devuelve un correo con todos sus datos rellenos
 */
@@ -76,7 +76,8 @@ void correoCuerpo(string& cuerpo);
 bool operator< (const tCorreo & correo1, const tCorreo & correo2);
 
 /**
-* Funcion que recibe u correo elimina la concatenacion "Re: " del asunto en caso de que lo hubiere
+* Funcion que recibe un correo elimina la concatenacion "Re: " del asunto en caso de que lo hubiese
+* CUIDADO - Eiminara la totalidad del asusto si el usuario pone como asunto original "Re: "
 */
 void quitarRe(tCorreo & correo);
 

@@ -99,7 +99,7 @@ void leerCorreo(tGestor& gestor, tListaRegistros& listaRegistros){
 	string cabecera, cadena;
 	tCorreo correoRespondido;
 
-	cout << "Introduzca el numero correo a leer: ";
+	cout << "Introduzca el numero del correo a leer: ";
 	cin >> numCorreo;
 	system("cls");
 
@@ -158,19 +158,6 @@ void lecturaRapida(tGestor& gestor, tListaRegistros& listaRegistros){
 	tListaCorreos listaAuxiliar = gestor.listaCorreos;
 	system("cls");
 
-/*
-	ordenar_AF(gestor.listaCorreos);
-
-	for (int i = 0; i<listaRegistros.contador; i++){
-
-		if (!listaRegistros.registros[i].leido){
-			buscar(gestor.listaCorreos, listaRegistros.registros[i].identificador, pos);
-			cout << aCadena(gestor.listaCorreos.correos[pos]);
-			correoLeido(gestor.listaUsuarios.usuarios[gestor.usuarioActivo]->bandejaEntrada, listaRegistros.registros[i].identificador);
-			lineaIntercalada();
-		}
-	}
-	*/
 	ordenar_AF(listaAuxiliar);
 
 	for (int i = 0; i<listaAuxiliar.contador; i++){
@@ -240,6 +227,7 @@ void mostrarInterfazUsuario(tGestor& gestor, bool bEntrada){
 	if(bEntrada){
 		cout <<"L" << setw(2) << "N" << setw(10) << "EMISOR" << setw(30) << "ASUNTO" << setw(35) << "FECHA" << endl;
 	}
+
 	else
 		cout <<"L" << setw(2) << "N" << setw(15) << "DESTINATARIO" << setw(25) << "ASUNTO" << setw(35) << "FECHA" << endl;
 	lineaIntercalada();
@@ -248,8 +236,8 @@ void mostrarInterfazUsuario(tGestor& gestor, bool bEntrada){
 
 	lineaIntercalada();
 	mostrarMenu(bEntrada);
-
 }
+
 
 void mostarBandeja(const tGestor & gestor, bool bEntrada){
 	int pos;
@@ -273,6 +261,7 @@ void mostarBandeja(const tGestor & gestor, bool bEntrada){
 	}
 }
 
+
 void mostrarMenu(bool bEntrada){
 	cout << "Elija una opcion:" << endl;
 	cout << setw(3) << "1- Leer correo" << endl;
@@ -287,6 +276,7 @@ void mostrarMenu(bool bEntrada){
 	cout << "Introduzca un opcion:";
 }
 
+
 void mostrarMenuVerCorreo(){
 	lineaIntercalada();
 	cout << "Elija una opcion:" << endl;
@@ -295,6 +285,7 @@ void mostrarMenuVerCorreo(){
 	lineaIntercalada();
 	cout << "Introduzca un opcion:";
 }
+
 
 void lineaIntercalada(){
 	for(int i=0; i<80;i++) cout << "=";

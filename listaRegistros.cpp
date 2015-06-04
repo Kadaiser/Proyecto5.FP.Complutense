@@ -13,6 +13,7 @@ void inicializar(tListaRegistros& listaRegistros, int capInicial){ //el 3er para
 	listaRegistros.capacidad = capInicial;
 }
 
+
 void cargar(tListaRegistros &listaRegistros, ifstream& archivo){
 	float numElementos, numRedondeado;
 	tRegistro registro;
@@ -28,11 +29,13 @@ void cargar(tListaRegistros &listaRegistros, ifstream& archivo){
 	}
 }
 
+
 void guardar(const tListaRegistros &listaRegistros, ofstream& archivo){
 	for(int i= 0; i < listaRegistros.contador; i++){
 		archivo << listaRegistros.registros[i].identificador << " " << listaRegistros.registros[i].leido << endl;
 	}
 }
+
 
 void insertar(tListaRegistros &listaRegistros, tRegistro registro){
 	if(listaRegistros.contador == listaRegistros.capacidad){
@@ -42,9 +45,11 @@ void insertar(tListaRegistros &listaRegistros, tRegistro registro){
 	listaRegistros.contador++;
 }
 
+
 bool borrar(tListaRegistros &listaRegistros, string id){
 	bool borrado = false;
 	int posicion = buscar(listaRegistros,id);
+
 	if(posicion != -1){
 			for (posicion; posicion < listaRegistros.contador; posicion++){
 				listaRegistros.registros[posicion] = listaRegistros.registros[posicion+1];
@@ -54,6 +59,7 @@ bool borrar(tListaRegistros &listaRegistros, string id){
 	}
 return borrado;
 }
+
 
 bool correoLeido(tListaRegistros &listaRegistros, string id){
 	bool check = false;
@@ -65,6 +71,7 @@ bool correoLeido(tListaRegistros &listaRegistros, string id){
 	}
 	return check;
 }
+
 
 int buscar(const tListaRegistros &listaRegistros, string id){
 	int posicion;
@@ -101,16 +108,16 @@ void cargarRegistro(tRegistro& registro, ifstream& archivo){
 void redimensionar (tListaRegistros &listaRegistros){
 	int i = 0;
 	int nuevaCapacidad = (listaRegistros.capacidad * 3)/2+1;
-	tListaRegistros nuevaLista; //crear nuevo array
+	tListaRegistros nuevaLista; //crear nueva estructura con  array
 
 	inicializar(nuevaLista, nuevaCapacidad);
-
 
 	while ( i < listaRegistros.contador ){			//copiar viejo a nuevo
 		insertar(nuevaLista, listaRegistros.registros[i++]);
 	}
 	listaRegistros = nuevaLista; //Se sobreescriben los punteros de la vieja lista
 }
+
 
 void destruir(tListaRegistros &listaRegistros){
 	delete[] listaRegistros.registros;

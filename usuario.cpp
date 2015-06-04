@@ -20,6 +20,7 @@ bool cargar(tUsuario& usuario, ifstream& archivo){
 	return ok;
 }
 
+
 void guardar(const tUsuario& usuario, ofstream& archivo){
 	archivo << usuario.identificador << endl;
 	archivo << usuario.contrasenia<< endl;
@@ -29,12 +30,14 @@ void guardar(const tUsuario& usuario, ofstream& archivo){
 	if(usuario.bandejaSalida.contador != 0)	guardar(usuario.bandejaSalida, archivo);
 }
 
+
 void inicializar(tUsuario& usuario, string id, string contrasenia){
 	usuario.identificador = id;
 	usuario.contrasenia = contrasenia;
 	inicializar(usuario.bandejaEntrada, REGISTROS_INICIAL);
 	inicializar(usuario.bandejaSalida, REGISTROS_INICIAL);
 }
+
 
 bool validarContrasenia(const tUsuario &usuario, string contrasenia){
 	bool ok = false;

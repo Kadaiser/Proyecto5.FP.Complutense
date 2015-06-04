@@ -66,8 +66,14 @@ int buscar(const tListaRegistros &listaRegistros, string id);
 */
 void cargarRegistro(tRegistro& registro, ifstream& archivo);
 
+/**
+* Recibe una lista de registros redimensionando (siempre al alza) el tamaño limite del array dinamico.
+*/
 void redimensionar (tListaRegistros &listaRegistros);
 
+/**
+*	Funcion que elimina los punteros asignados por el SGDM de la lista de registros.
+*/
 void destruir(tListaRegistros &listaRegistros);
 
 #endif

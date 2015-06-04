@@ -48,7 +48,6 @@ bool iniciarSesion(tGestor &gestor);
 */
 void leerCorreo(tGestor& gestor, tListaRegistros& registros);
 
-
 /**
 * Este subprograma implementa el envío del correo en nuestra aplicación. Para ello el correo recibido como parámetro es insertado en la lista de correo.
 * Si ha habido éxito, entonces se inserta el registro correspondiente en la lista de registros enviados del emisor y se intenta insertar igualmente un registro
@@ -97,7 +96,6 @@ void mostrarMenu(bool bEntrada);
 *Muestra por pantalla el menu de opciones para la contestacion de un correo
 */
 void mostrarMenuVerCorreo();
-
 
 /**
 * Genera una linea horizontal de "=" diseñada para ocupar la longitud por defecto de una consola de sistema de windows

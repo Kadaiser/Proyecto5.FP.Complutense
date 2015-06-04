@@ -50,7 +50,10 @@ bool buscarUsuario(const tListaUsuarios& listaUsuarios, string id, int& posicion
 */
 void ordenarUsuarios(tListaUsuarios& listaUsuarios);
 
-
+/**
+* Funcion que primero destrulle las listas de registro de un usuario y luego el usuario, de manera reiterada hasta destruir todos los punteros del
+* array de usuarios.
+*/
 void destruir(tListaUsuarios& listaUsuarios);
 
 #endif

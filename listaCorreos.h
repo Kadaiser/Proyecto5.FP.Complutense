@@ -16,14 +16,6 @@ typedef struct{
 } tListaCorreos;
 
 
-/**
-Creacion de array
-hay dos contextos:
-1-CARGA DE FICHEROS
-void inicializar;
-
-2-ARRANQUE SIN FICHEROS
-*/
 
 /**
 *  Inicializa la lista
@@ -65,8 +57,14 @@ bool buscar(const tListaCorreos &listaCorreos, string id, int &pos);
 */
 void ordenar_AF(tListaCorreos &listaCorreos);
 
+/**
+* Recibe una lista de correos redimensionando (siempre al alza) el tamaño limite del array dinamico.
+*/
 void redimensionar(tListaCorreos & listaCorreos);
 
+/**
+*	Funcion que elimina los punteros asignados por el SGDM de la lista de correos.
+*/
 void destruir(tListaCorreos& listaCorreos);
 
 #endif

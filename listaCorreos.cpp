@@ -13,6 +13,7 @@ void inicializar(tListaCorreos &listaCorreos, int capacidad){
 	listaCorreos.capacidad = capacidad;
 }
 
+
 bool cargar(tListaCorreos &listaCorreos, string dominio){
 	bool ok;
 	ifstream archivo;
@@ -41,6 +42,7 @@ bool cargar(tListaCorreos &listaCorreos, string dominio){
 	return ok;
 }
 
+
 void guardar(const tListaCorreos &listaCorreos, string dominio){
 	ofstream archivo;
 	string nombreFichero = dominio + "_" + ficheroCorreos;
@@ -67,6 +69,7 @@ void insertar(tListaCorreos &listaCorreos, const tCorreo &correo){
 	listaCorreos.contador++;
 
 }
+
 
 bool borrar(tListaCorreos &listaCorreos, string id){
 	bool borrado = false;
@@ -97,6 +100,7 @@ bool buscar(const tListaCorreos &listaCorreos, string id, int &pos){
 	return encontrado;
 }
 
+
 void ordenar_AF(tListaCorreos &listaCorreos){
 	bool intercambio = true;
 	int i = 0;
@@ -116,6 +120,7 @@ void ordenar_AF(tListaCorreos &listaCorreos){
 	}
 }
 
+
 void redimensionar(tListaCorreos & listaCorreos){
 	int i = 0;
 	int nuevaCapacidad = (listaCorreos.capacidad * 3)/2+1;
@@ -128,8 +133,8 @@ void redimensionar(tListaCorreos & listaCorreos){
 		insertar(nuevaLista, listaCorreos.correos[i++]);
 	}
 	listaCorreos = nuevaLista;
-
 }
+
 
 void destruir(tListaCorreos& listaCorreos){
 	delete[] listaCorreos.correos;

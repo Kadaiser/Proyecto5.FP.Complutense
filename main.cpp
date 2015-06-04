@@ -46,11 +46,10 @@ int opcion;
 }
 
 
-
-
 int menu(){
-	system("cls");
-	int opcion;
+		int opcion;
+
+		system("cls");
 		menuEntrada();
 		cin >> opcion;
 		cin.sync();

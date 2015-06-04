@@ -9,9 +9,9 @@ using namespace std;
 
 void inicializar(tListaUsuarios &listaUsuarios){
 	listaUsuarios.contador=0;
-	//hay que llenar a nullptr los elementos del array del MAXUSUARIOS
+
 	for(int i = 0; i < MAXUSUARIOS; i++){
-		listaUsuarios.usuarios[i] = nullptr;
+		listaUsuarios.usuarios[i] = nullptr; //poner a nullptr los elementos del array del MAXUSUARIOS
 	}
 }
 
@@ -39,6 +39,7 @@ bool cargar(tListaUsuarios& listaUsuarios, string dominio){
 	return ok;
 }
 
+
 void guardar(const tListaUsuarios& listaUsuarios, string dominio){
 	ofstream archivo;
 	string nombreFichero = dominio + "_" + ficheroUsuarios;
@@ -47,6 +48,7 @@ void guardar(const tListaUsuarios& listaUsuarios, string dominio){
 	if(!archivo.is_open()){
 		cout << "Error al guardar la lista de correos en el fichero" << endl;
 	}
+
 	else{
 		for (int i= 0; i < listaUsuarios.contador; i++){
 			guardar(*listaUsuarios.usuarios[i], archivo);
@@ -63,12 +65,6 @@ bool aniadir(tListaUsuarios& listaUsuarios, const tUsuario& usuario){
 
 	if(listaUsuarios.contador < MAXUSUARIOS){
 
-		/* ORIGINAL
-		listaUsuarios.usuarios[listaUsuarios.contador]= new tUsuario(usuario);
-		listaUsuarios.contador++;
-		ordenarUsuarios(listaUsuarios);
-		ok = true;
-		*/
 
 		buscarUsuario(listaUsuarios, usuario.identificador, pos);	//buscamos la posicion del usuario donde deberia estar en la lista
 		for(int i = listaUsuarios.contador; i > pos; i --)	//recorremos el array desde la ultima posicion hasta la posicion indicada
@@ -79,6 +75,7 @@ bool aniadir(tListaUsuarios& listaUsuarios, const tUsuario& usuario){
 	}
 	return ok;
 }
+
 
 bool buscarUsuario(const tListaUsuarios& listaUsuarios, string id, int& posicion){
 
@@ -102,6 +99,7 @@ bool buscarUsuario(const tListaUsuarios& listaUsuarios, string id, int& posicion
 
 	return encontrado;
 }
+
 
 void destruir(tListaUsuarios& listaUsuarios){
 	for (int i = 0; i < listaUsuarios.contador; i++){

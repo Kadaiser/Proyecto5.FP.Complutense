@@ -17,6 +17,7 @@ void correoNuevo(tCorreo &correo, string emisor){
 		correoCuerpo(correo.cuerpo);
 }
 
+
 void correoContestacion(const tCorreo &correoOriginal, tCorreo &correo, string emisor){
 		string cuerpoRespuesta;
 		correo.fecha = time(0);
@@ -32,6 +33,7 @@ void correoContestacion(const tCorreo &correoOriginal, tCorreo &correo, string e
 		correo.cuerpo += correoOriginal.cuerpo;
 }
 
+
 string aCadena(const tCorreo &correo){
 	string aCorreo, cadena;
 
@@ -39,6 +41,7 @@ string aCadena(const tCorreo &correo){
 	aCorreo += correo.cuerpo;
 	return aCorreo;
 }
+
 
 string obtenerCabecera(const tCorreo &correo){
 	string cabecera;
@@ -51,6 +54,7 @@ string obtenerCabecera(const tCorreo &correo){
 	return cabecera;
 }
 
+
 void cargar(tCorreo &correo, ifstream& archivo){
 	string cuerpo, fecha;
 
@@ -61,7 +65,6 @@ void cargar(tCorreo &correo, ifstream& archivo){
 	getline(archivo, correo.destinatario);
 	getline(archivo, correo.asunto);
 	leerCuerpo(correo.cuerpo, archivo);
-
 }
 
 void guardar(const tCorreo &correo, ofstream& archivo){
@@ -76,8 +79,8 @@ void guardar(const tCorreo &correo, ofstream& archivo){
 
 void leerCuerpo(string& cuerpo, ifstream& archivo){
 	string linea = "";
-
 	cuerpo = "";
+
 	getline(archivo, linea);
 	while(linea != CENTINELACUERPO){
 		cuerpo += linea + '\n';
@@ -100,6 +103,7 @@ void correoAsunto(string& asunto){
 void correoCuerpo(string& cuerpo){
 	string linea;
 	stringstream flujo;
+
 	cout << "Escribe tu mensaje (XXX para terminar): " << endl;
 		do{
 			getline(cin, linea);
@@ -107,7 +111,6 @@ void correoCuerpo(string& cuerpo){
 		}while(linea != CENTINELACORREO);
 	cuerpo=flujo.str();
 }
-
 
 bool operator< (const tCorreo & correo1, const tCorreo & correo2){
 	bool esMenor = true;
@@ -129,6 +132,7 @@ bool operator< (const tCorreo & correo1, const tCorreo & correo2){
 void quitarRe(tCorreo & correo){
 	string asuntoAux = correo.asunto;
 	bool esRespuesta =(asuntoAux.substr (0,4) == "Re: ");
+
 	while(esRespuesta){
 	asuntoAux.erase (0,4);
 	esRespuesta =(asuntoAux.substr (0,4) == "Re: ");
