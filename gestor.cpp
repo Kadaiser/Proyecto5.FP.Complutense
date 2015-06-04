@@ -256,7 +256,7 @@ void mostarBandeja(const tGestor & gestor, bool bEntrada){
 	tUsuarioPtr usuario = gestor.listaUsuarios.usuarios[gestor.usuarioActivo];
 
 	if(bEntrada){
-		for(int i =  0; i< usuario->bandejaEntrada.contador; i++){
+		for(int i =0; i < usuario->bandejaEntrada.contador; i++){
 			if(usuario->bandejaEntrada.registros[i].leido) cout << " ";
 			else cout << "*";
 			if (buscar(gestor.listaCorreos, usuario->bandejaEntrada.registros[i].identificador, pos)){

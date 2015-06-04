@@ -104,7 +104,7 @@ void ordenar_AF(tListaCorreos &listaCorreos){
 	while((i<listaCorreos.contador) && intercambio){
 		intercambio = false;
 		for (int j = listaCorreos.contador-1; j > i; j--){
-			if(listaCorreos.correos[j] > listaCorreos.correos[j-1]){
+			if(listaCorreos.correos[j] < listaCorreos.correos[j-1]){
 				tCorreo tmp;
 				tmp = listaCorreos.correos[j];
 				listaCorreos.correos[j] = listaCorreos.correos[j-1];

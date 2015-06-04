@@ -109,7 +109,7 @@ void correoCuerpo(string& cuerpo){
 }
 
 
-bool operator> (const tCorreo & correo1, const tCorreo & correo2){
+bool operator< (const tCorreo & correo1, const tCorreo & correo2){
 	bool esMenor = true;
 	tCorreo correo1aux = correo1;
 	tCorreo correo2aux = correo2;
