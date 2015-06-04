@@ -54,7 +54,7 @@ bool crearCuenta(tGestor &gestor){
 					ok = true;
 					cout << "Se genero su cuenta correctamente." << endl << "Va a iniciar su primera sesion en " << gestor.dominio << endl;
 				}
-			else cout << "No pudo incluirse el usuario en la lista de usuarios";
+			else cout << "No pudo incluirse el usuario en la lista de usuarios" << endl;
 
 		buscarUsuario(gestor.listaUsuarios, identificador, gestor.usuarioActivo); //Otra forma de reutilzar la funcion de busqueda de uusuarios es para cargar el usuario activo en base al identificador recien creado
 		system("pause");
@@ -86,7 +86,7 @@ bool iniciarSesion(tGestor &gestor){
 			}
 		}
 		else{
-			cout << "Cuenta no existe, regresando a menu principal"<< endl;
+			cout << "Cuenta no existe, regresando a menu principal" << endl;
 		}
 	system("pause");
 return ok;
